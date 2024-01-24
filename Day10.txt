@@ -1,0 +1,106 @@
+Lab: Use the same student management system Database and table from previous
+lab.Perform the following commands on the table Student and Enrollment.
+
+1. Assume a university where students can enroll in various courses.Now, write down a
+FULL outer JOIN query to retrieve the details.
+
+--> /* Fetching records of Student table */
+
+mysql> select * from student;
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email             | Phone      |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| S101      | Priya     | Keshari  | 2003-10-10  | Female | priya@gmail.com   | 9876543210 |
+| S102      | Anjali    | Mahato   | 2003-05-30  | Female | anjali@gmail.com  | 9876543290 |
+| S103      | Sandeep   | Kumar    | 2007-09-14  | Male   | sandeep@gmail.com | 9858543290 |
+| S104      | Vivek     | Singh    | 2001-02-26  | Male   | vivek@gmail.com   | 8958543290 |
+| S105      | Khushi    | Yadav    | 2012-07-25  | Female | khushi@gmail.com  | 8958554780 |
+| S106      | Jane      | Smith    | 2000-02-21  | Male   | jane@gmail.com    | 8981547963 |
+| S107      | Bob       | Johnson  | 2004-07-28  | Male   | bob@gmail.com     | 9875463210 |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+7 rows in set 
+
+     /* Fetching records of Enrollment table */
+
+mysql> select * from enrollment;
++--------------+----------------+-----------+----------+--------------+
+| EnrollmentID | EnrollmentDate | StudentID | CourseID | InstructorID |
++--------------+----------------+-----------+----------+--------------+
+| E101         | 2023-01-02     | S101      | C101     | I101         |
+| E102         | 2021-09-10     | S102      | C102     | I102         |
+| E103         | 2020-09-18     | S103      | C104     | I103         |
+| E104         | 2022-10-01     | S104      | C103     | I105         |
+| E105         | 2019-12-02     | S105      | C105     | I104         |
++--------------+----------------+-----------+----------+--------------+
+5 rows in set
+
+     /* Fetching records of Student table and Enrollment table by performing FULL OUTER JOIN */
+
+mysql> select s.StudentID, s.FirstName, s.LastName, s.Email, e.EnrollmentID, e.CourseID
+    -> from Student s left join Enrollment e
+    -> on s.StudentID = e.StudentID
+    -> union all
+    -> select s.StudentID, s.FirstName, s.LastName, s.Email, e.EnrollmentID, e.CourseID
+    -> from Student s right join Enrollment e
+    -> on s.StudentID = e.StudentID
+    -> where s.StudentID is null;
++-----------+-----------+----------+-------------------+--------------+----------+
+| StudentID | FirstName | LastName | Email             | EnrollmentID | CourseID |
++-----------+-----------+----------+-------------------+--------------+----------+
+| S101      | Priya     | Keshari  | priya@gmail.com   | E101         | C101     |
+| S102      | Anjali    | Mahato   | anjali@gmail.com  | E102         | C102     |
+| S103      | Sandeep   | Kumar    | sandeep@gmail.com | E103         | C104     |
+| S104      | Vivek     | Singh    | vivek@gmail.com   | E104         | C103     |
+| S105      | Khushi    | Yadav    | khushi@gmail.com  | E105         | C105     |
+| S106      | Jane      | Smith    | jane@gmail.com    | NULL         | NULL     |
+| S107      | Bob       | Johnson  | bob@gmail.com     | NULL         | NULL     |
++-----------+-----------+----------+-------------------+--------------+----------+
+7 rows in set
+
+2. Assume a university where students can enroll in various courses.Now, write down a
+Natural JOIN query to retrieve the details.
+
+--> /* Fetching records of Student table */
+
+mysql> select * from student;
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email             | Phone      |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| S101      | Priya     | Keshari  | 2003-10-10  | Female | priya@gmail.com   | 9876543210 |
+| S102      | Anjali    | Mahato   | 2003-05-30  | Female | anjali@gmail.com  | 9876543290 |
+| S103      | Sandeep   | Kumar    | 2007-09-14  | Male   | sandeep@gmail.com | 9858543290 |
+| S104      | Vivek     | Singh    | 2001-02-26  | Male   | vivek@gmail.com   | 8958543290 |
+| S105      | Khushi    | Yadav    | 2012-07-25  | Female | khushi@gmail.com  | 8958554780 |
+| S106      | Jane      | Smith    | 2000-02-21  | Male   | jane@gmail.com    | 8981547963 |
+| S107      | Bob       | Johnson  | 2004-07-28  | Male   | bob@gmail.com     | 9875463210 |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+7 rows in set 
+
+     /* Fetching records of Enrollment table */
+
+mysql> select * from enrollment;
++--------------+----------------+-----------+----------+--------------+
+| EnrollmentID | EnrollmentDate | StudentID | CourseID | InstructorID |
++--------------+----------------+-----------+----------+--------------+
+| E101         | 2023-01-02     | S101      | C101     | I101         |
+| E102         | 2021-09-10     | S102      | C102     | I102         |
+| E103         | 2020-09-18     | S103      | C104     | I103         |
+| E104         | 2022-10-01     | S104      | C103     | I105         |
+| E105         | 2019-12-02     | S105      | C105     | I104         |
++--------------+----------------+-----------+----------+--------------+
+5 rows in set
+
+     /* Fetching records of Student table and Enrollment table by performing NATURAL JOIN */
+
+mysql> select StudentID, FirstName, LastName, Gender, EnrollmentID, CourseID
+    -> from Student natural join Enrollment;
++-----------+-----------+----------+--------+--------------+----------+
+| StudentID | FirstName | LastName | Gender | EnrollmentID | CourseID |
++-----------+-----------+----------+--------+--------------+----------+
+| S101      | Priya     | Keshari  | Female | E101         | C101     |
+| S102      | Anjali    | Mahato   | Female | E102         | C102     |
+| S103      | Sandeep   | Kumar    | Male   | E103         | C104     |
+| S104      | Vivek     | Singh    | Male   | E104         | C103     |
+| S105      | Khushi    | Yadav    | Female | E105         | C105     |
++-----------+-----------+----------+--------+--------------+----------+
+5 rows in set

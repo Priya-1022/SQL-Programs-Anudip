@@ -1,0 +1,134 @@
+Lab: Use the Student Management System Database and table from previous
+lab.Perform the following commands on the table Student and Enrollment.
+
+1. Let's consider a scenario where you have a database tracking student
+enrollments and some students may not be enrolled in any courses.
+John Doe (StudentID: 1) is enrolled in courses with EnrollmentIDs 101 and 102.
+Jane Smith (StudentID: 2) is enrolled in courses with EnrollmentIDs 103 and 104.
+Bob Johnson (StudentID: 3) is not enrolled in any courses.
+Now,run RIGHT OUTER JOIN query to retrieve data.
+
+--> /* Fetching records of Student table */
+
+mysql> select * from student;
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email             | Phone      |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| S101      | Priya     | Keshari  | 2003-10-10  | Female | priya@gmail.com   | 9876543210 |
+| S102      | Anjali    | Mahato   | 2003-05-30  | Female | anjali@gmail.com  | 9876543290 |
+| S103      | Sandeep   | Kumar    | 2007-09-14  | Male   | sandeep@gmail.com | 9858543290 |
+| S104      | Vivek     | Singh    | 2001-02-26  | Male   | vivek@gmail.com   | 8958543290 |
+| S105      | Khushi    | Yadav    | 2012-07-25  | Female | khushi@gmail.com  | 8958554780 |
+| S106      | Jane      | Smith    | 2000-02-21  | Male   | jane@gmail.com    | 8981547963 |
+| S107      | Bob       | Johnson  | 2004-07-28  | Male   | bob@gmail.com     | 9875463210 |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+7 rows in set 
+
+     /* Fetching records of Enrollment table */
+
+mysql> select * from enrollment;
++--------------+----------------+-----------+----------+--------------+
+| EnrollmentID | EnrollmentDate | StudentID | CourseID | InstructorID |
++--------------+----------------+-----------+----------+--------------+
+| E101         | 2023-01-02     | S101      | C101     | I101         |
+| E102         | 2021-09-10     | S102      | C102     | I102         |
+| E103         | 2020-09-18     | S103      | C104     | I103         |
+| E104         | 2022-10-01     | S104      | C103     | I105         |
+| E105         | 2019-12-02     | S105      | C105     | I104         |
++--------------+----------------+-----------+----------+--------------+
+5 rows in set
+
+     /* Fetching records of Student table and Enrollment table by performing RIGHT OUTER JOIN */
+
+mysql> select s.StudentID, s.FirstName, s.LastName, e.EnrollmentID, e.CourseID
+    -> from Student s right join Enrollment e
+    -> on s.StudentID = e.StudentID;
++-----------+-----------+----------+--------------+----------+
+| StudentID | FirstName | LastName | EnrollmentID | CourseID |
++-----------+-----------+----------+--------------+----------+
+| S101      | Priya     | Keshari  | E101         | C101     |
+| S102      | Anjali    | Mahato   | E102         | C102     |
+| S103      | Sandeep   | Kumar    | E103         | C104     |
+| S104      | Vivek     | Singh    | E104         | C103     |
+| S105      | Khushi    | Yadav    | E105         | C105     |
++-----------+-----------+----------+--------------+----------+
+5 rows in set
+
+2. Assume a university where students can enroll in various courses. Here are some
+fictional details:
+
+Student Information:
+Student with ID 1: John, email: john@email.com
+Student with ID 2: Jane, email: jane@email.com
+Student with ID 3: Bob, email: bob@email.com
+
+Enrollment Information:
+Enrollment with ID 101: John (StudentID: 1) enrolls in Math (CourseID: MATH101).
+Enrollment with ID 102: John (StudentID: 1) enrolls in History (CourseID: HIST201).
+Enrollment with ID 103: Jane (StudentID: 2) enrolls in Physics (CourseID: PHYS301).
+Enrollment with ID 104: Bob (StudentID: 3) enrolls in Chemistry (CourseID: CHEM401).
+Enrollment with ID 105: Alice (StudentID: 4) enrolls in English (CourseID: ENG501).
+
+Now, write a LEFT JOIN query to retrieve the data.
+
+--> select * from student;
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email             | Phone      |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| S101      | Priya     | Keshari  | 2003-10-10  | Female | priya@gmail.com   | 9876543210 |
+| S102      | Anjali    | Mahato   | 2003-05-30  | Female | anjali@gmail.com  | 9876543290 |
+| S103      | Sandeep   | Kumar    | 2007-09-14  | Male   | sandeep@gmail.com | 9858543290 |
+| S104      | Vivek     | Singh    | 2001-02-26  | Male   | vivek@gmail.com   | 8958543290 |
+| S105      | Khushi    | Yadav    | 2012-07-25  | Female | khushi@gmail.com  | 8958554780 |
+| S106      | Jane      | Smith    | 2000-02-21  | Male   | jane@gmail.com    | 8981547963 |
+| S107      | Bob       | Johnson  | 2004-07-28  | Male   | bob@gmail.com     | 9875463210 |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+7 rows in set 
+
+     /* Fetching records of Enrollment table */
+
+mysql> select * from enrollment;
++--------------+----------------+-----------+----------+--------------+
+| EnrollmentID | EnrollmentDate | StudentID | CourseID | InstructorID |
++--------------+----------------+-----------+----------+--------------+
+| E101         | 2023-01-02     | S101      | C101     | I101         |
+| E102         | 2021-09-10     | S102      | C102     | I102         |
+| E103         | 2020-09-18     | S103      | C104     | I103         |
+| E104         | 2022-10-01     | S104      | C103     | I105         |
+| E105         | 2019-12-02     | S105      | C105     | I104         |
++--------------+----------------+-----------+----------+--------------+
+5 rows in set
+
+     /* Fetching records of Course table */
+
+mysql> select * from course;
++----------+--------------------+---------+
+| CourseID | CourseTitle        | Credits |
++----------+--------------------+---------+
+| C101     | Python             |      10 |
+| C102     | Java               |      10 |
+| C103     | MySQL              |      10 |
+| C104     | C++                |      10 |
+| C105     | Data Visualization |      10 |
++----------+--------------------+---------+
+5 rows in set
+
+     /* Fetching records of Student table, Enrollment table and Course table by performing LEFT JOIN */
+
+mysql> select s.StudentID, s.FirstName, s.LastName, s.Email, e.EnrollmentID, c.CourseID, c.CourseTitle
+    -> from Student s left join Enrollment e
+    -> on s.StudentID = e.StudentID
+    -> left join Course c
+    -> on e.CourseID = c.CourseID;
++-----------+-----------+----------+-------------------+--------------+----------+--------------------+
+| StudentID | FirstName | LastName | Email             | EnrollmentID | CourseID | CourseTitle        |
++-----------+-----------+----------+-------------------+--------------+----------+--------------------+
+| S101      | Priya     | Keshari  | priya@gmail.com   | E101         | C101     | Python             |
+| S102      | Anjali    | Mahato   | anjali@gmail.com  | E102         | C102     | Java               |
+| S103      | Sandeep   | Kumar    | sandeep@gmail.com | E103         | C104     | C++                |
+| S104      | Vivek     | Singh    | vivek@gmail.com   | E104         | C103     | MySQL              |
+| S105      | Khushi    | Yadav    | khushi@gmail.com  | E105         | C105     | Data Visualization |
+| S106      | Jane      | Smith    | jane@gmail.com    | NULL         | NULL     | NULL               |
+| S107      | Bob       | Johnson  | bob@gmail.com     | NULL         | NULL     | NULL               |
++-----------+-----------+----------+-------------------+--------------+----------+--------------------+
+7 rows in set
