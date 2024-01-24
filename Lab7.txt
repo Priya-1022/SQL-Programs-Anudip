@@ -1,0 +1,144 @@
+Assignment 1:
+
+Task1: Assume you are managing a database of student records, and you need to retrieve information about students born after June 16, 2009. What will be the sql query for this?
+
+--> mysql> SELECT * from student
+    -> WHERE dateofbirth > '2009-06-16';
++-----------+-----------+----------+-------------+--------+------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email            | Phone      |
++-----------+-----------+----------+-------------+--------+------------------+------------+
+| S105      | Khushi    | Yadav    | 2012-07-25  | Female | khushi@gmail.com | 8958554780 |
++-----------+-----------+----------+-------------+--------+------------------+------------+
+1 row in set
+
+Task2: Assume you have a database containing a "Student" table with information
+about students, including their first names. You want to retrieve records of students
+whose first names start with either 'A' or 'J'. To achieve this,what will be your sql query?
+
+--> mysql> SELECT * from student
+    -> WHERE firstname LIKE 'A%' OR firstname LIKE 'J%';
++-----------+-----------+----------+-------------+--------+------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email            | Phone      |
++-----------+-----------+----------+-------------+--------+------------------+------------+
+| S102      | Anjali    | Mahato   | 2003-05-30  | Female | anjali@gmail.com | 9876543290 |
+| S106      | Jane      | Smith    | 2000-02-21  | Male   | jane@gmail.com   | 8981547963 |
++-----------+-----------+----------+-------------+--------+------------------+------------+
+2 rows in set
+
+Task 3 .Let's consider a scenario where you have a database with a "Student" table that
+contains information about students, including their first names and email addresses.
+You want to retrieve records of students whose first name is not 'Alice' and whose email
+addresses contain the domain '@example.com'. To achieve this, what will be your sql
+query?
+
+--> mysql> SELECT * from student
+    -> WHERE firstname != 'Anjali' AND email LIKE 'jane@gmail.com';
++-----------+-----------+----------+-------------+--------+----------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email          | Phone      |
++-----------+-----------+----------+-------------+--------+----------------+------------+
+| S106      | Jane      | Smith    | 2000-02-21  | Male   | jane@gmail.com | 8981547963 |
++-----------+-----------+----------+-------------+--------+----------------+------------+
+1 row in set
+
+Assignment 2:
+
+Task1: Create a table Person with PersonID int, FirstName varchar(255),
+LastName varchar(255) and age (int).
+Make PersonID PRIMARY KEY.
+
+--> mysql> CREATE TABLE Person (
+    -> PersonID INT PRIMARY KEY,
+    -> FirstName VARCHAR(30) not null,
+    -> LastName VARCHAR(30) not null,
+    -> Age INT not null
+    -> );
+Query OK, 0 rows affected 
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| PersonID  | int         | NO   | PRI | NULL    |       |
+| FirstName | varchar(30) | NO   |     | NULL    |       |
+| LastName  | varchar(30) | NO   |     | NULL    |       |
+| Age       | int         | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set
+
+Task2: Create a table Employee with emp_id int, first_name varchar(255),
+last_name varchar(255) and age (int )
+Make emp_id PRIMARY KEY.
+
+--> mysql> CREATE TABLE Employee (
+    -> emp_id INT PRIMARY KEY,
+    -> first_name VARCHAR(30) not null,
+    -> last_name VARCHAR(30) not null,
+    -> age int not null
+    -> );
+Query OK, 0 rows affected (0.32 sec)
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | int         | NO   | PRI | NULL    |       |
+| first_name | varchar(30) | NO   |     | NULL    |       |
+| last_name  | varchar(30) | NO   |     | NULL    |       |
+| age        | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set
+
+Task 3: Insert data to Person table
+
+--> mysql> INSERT INTO Person (PersonID, FirstName, LastName, Age)
+    -> VALUES
+    ->   (1, 'John', 'Doe', 25),
+    ->   (2, 'Jane', 'Smith', 30),
+    ->   (3, 'Bob', 'Johnson', 22);
+Query OK, 3 rows affected 
+
+mysql> select * from person;
++----------+-----------+----------+-----+
+| PersonID | FirstName | LastName | Age |
++----------+-----------+----------+-----+
+|        1 | John      | Doe      |  25 |
+|        2 | Jane      | Smith    |  30 |
+|        3 | Bob       | Johnson  |  22 |
++----------+-----------+----------+-----+
+3 rows in set
+
+Task 4: Insert data to Employee table
+
+--> mysql> INSERT INTO Employee (emp_id, first_name, last_name, age)
+    -> VALUES
+    ->   (101, 'Alice', 'Williams', 28),
+    ->   (102, 'Charlie', 'Brown', 35),
+    ->   (103, 'Eva', 'Miller', 40);
+Query OK, 3 rows affected 
+
+mysql> select * from employee;
++--------+------------+-----------+-----+
+| emp_id | first_name | last_name | age |
++--------+------------+-----------+-----+
+|    101 | Alice      | Williams  |  28 |
+|    102 | Charlie    | Brown     |  35 |
+|    103 | Eva        | Miller    |  40 |
++--------+------------+-----------+-----+
+3 rows in set
+
+Task 5: Create Union of two tables
+
+--> mysql> SELECT PersonID, FirstName, LastName, Age from person
+    -> UNION
+    -> SELECT emp_id, first_name, last_name, age from employee;
++----------+-----------+----------+-----+
+| PersonID | FirstName | LastName | Age |
++----------+-----------+----------+-----+
+|        1 | John      | Doe      |  25 |
+|        2 | Jane      | Smith    |  30 |
+|        3 | Bob       | Johnson  |  22 |
+|      101 | Alice     | Williams |  28 |
+|      102 | Charlie   | Brown    |  35 |
+|      103 | Eva       | Miller   |  40 |
++----------+-----------+----------+-----+
+6 rows in set
