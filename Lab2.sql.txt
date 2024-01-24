@@ -1,0 +1,146 @@
+Lab 1. Use the Database and table from Day 1 lab. Insert 5 records in each table and retrieve data from all tables and display.
+
+
+/* Inserting data into Student table */
+
+mysql> insert into Student values
+    -> ('S101','Priya','Keshari','2003-10-10','Female','priya@gmail.com','9876543210'),
+    -> ('S102','Anjali','Mahato','2003-05-30','Female','anjali@gmail.com','9876543290'),
+    -> ('S103','Sandeep','Kumar','2007-09-14','Male','sandeep@gmail.com','9858543290'),
+    -> ('S104','Vivek','Singh','2001-02-26','Male','vivek@gmail.com','8958543290'),
+    -> ('S105','Khushi','Yadav','2012-07-25','Female','khushi@gmail.com','8958554780');
+Query OK, 5 rows affected
+
+/* Fetching data of Student table */
+
+mysql> select * from student;
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email             | Phone      |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| S101      | Priya     | Keshari  | 2003-10-10  | Female | priya@gmail.com   | 9876543210 |
+| S102      | Anjali    | Mahato   | 2003-05-30  | Female | anjali@gmail.com  | 9876543290 |
+| S103      | Sandeep   | Kumar    | 2007-09-14  | Male   | sandeep@gmail.com | 9858543290 |
+| S104      | Vivek     | Singh    | 2001-02-26  | Male   | vivek@gmail.com   | 8958543290 |
+| S105      | Khushi    | Yadav    | 2012-07-25  | Female | khushi@gmail.com  | 8958554780 |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+5 rows in set
+
+/* Inserting data into Course table */
+
+mysql> insert into Course values
+    -> ('C101','Python',10),
+    -> ('C102','Java',10),
+    -> ('C103','MySQL',10),
+    -> ('C104','C++',10),
+    -> ('C105','Data Visualization',10);
+Query OK, 5 rows affected
+
+/* Fetching data of Course table */
+
+mysql> select * from course;
++----------+--------------------+---------+
+| CourseID | CourseTitle        | Credits |
++----------+--------------------+---------+
+| C101     | Python             |      10 |
+| C102     | Java               |      10 |
+| C103     | MySQL              |      10 |
+| C104     | C++                |      10 |
+| C105     | Data Visualization |      10 |
++----------+--------------------+---------+
+5 rows in set
+
+/* Inserting data into Instructor table */
+
+mysql> insert into Instructor values
+    -> ('I101','Subhashree','Das','subhashree@gmail.com'),
+    -> ('I102','Shawin','Pradhan','shawin@gmail.com'),
+    -> ('I103','Suramya','Biswas','suramya@gmail.com'),
+    -> ('I104','Gargi','Banerjee','gargi@gmail.com'),
+    -> ('I105','Riju','Kundu','riju@gmail.com');
+Query OK, 5 rows affected
+
+/* Fetching data of Instructor table */
+
+mysql> select * from instructor;
++--------------+------------+----------+----------------------+
+| InstructorID | FirstName  | LastName | Email                |
++--------------+------------+----------+----------------------+
+| I101         | Subhashree | Das      | subhashree@gmail.com |
+| I102         | Shawin     | Pradhan  | shawin@gmail.com     |
+| I103         | Suramya    | Biswas   | suramya@gmail.com    |
+| I104         | Gargi      | Banerjee | gargi@gmail.com      |
+| I105         | Riju       | Kundu    | riju@gmail.com       |
++--------------+------------+----------+----------------------+
+5 rows in set
+
+/* Inserting data into Enrollment table */
+
+mysql> insert into Enrollment values
+    -> ('E101','2023-01-02','S101','C101','I101'),
+    -> ('E102','2021-09-10','S102','C102','I102'),
+    -> ('E103','2020-09-18','S103','C104','I103'),
+    -> ('E104','2022-10-01','S104','C103','I105'),
+    -> ('E105','2019-12-02','S105','C105','I104');
+Query OK, 5 rows affected
+
+/* Fetching data of Enrollment table */
+
+mysql> select * from enrollment;
++--------------+----------------+-----------+----------+--------------+
+| EnrollmentID | EnrollmentDate | StudentID | CourseID | InstructorID |
++--------------+----------------+-----------+----------+--------------+
+| E101         | 2023-01-02     | S101      | C101     | I101         |
+| E102         | 2021-09-10     | S102      | C102     | I102         |
+| E103         | 2020-09-18     | S103      | C104     | I103         |
+| E104         | 2022-10-01     | S104      | C103     | I105         |
+| E105         | 2019-12-02     | S105      | C105     | I104         |
++--------------+----------------+-----------+----------+--------------+
+5 rows in set
+
+/* Inserting data into Score table */
+
+mysql> insert into Score values
+    -> ('Sc101','C101','S101','2024-02-05',7),
+    -> ('Sc102','C102','S102','2024-03-14',8),
+    -> ('Sc103','C103','S103','2023-12-09',8),
+    -> ('Sc104','C104','S104','2023-12-13',9),
+    -> ('Sc105','C105','S105','2023-11-08',6);
+Query OK, 5 rows affected
+
+/* Fetching data of Score table */
+
+mysql> select * from score;
++---------+----------+-----------+------------+----------------+
+| ScoreID | CourseID | StudentID | DateOfExam | CreditObtained |
++---------+----------+-----------+------------+----------------+
+| Sc101   | C101     | S101      | 2024-02-05 |              7 |
+| Sc102   | C102     | S102      | 2024-03-14 |              8 |
+| Sc103   | C103     | S103      | 2023-12-09 |              8 |
+| Sc104   | C104     | S104      | 2023-12-13 |              9 |
+| Sc105   | C105     | S105      | 2023-11-08 |              6 |
++---------+----------+-----------+------------+----------------+
+5 rows in set
+
+/* Inserting data into Feedback table */
+
+mysql> insert into Feedback values
+    -> ('F101','S101','2020-02-02','Subhashree Das','Good'),
+    -> ('F102','S102','2020-02-08','Shawin Pradhan','Good'),
+    -> ('F103','S103','2021-12-08','Suramya Biswas','Good'),
+    -> ('F104','S104','2023-11-08','Gargi Banerjee','Good'),
+    -> ('F105','S105','2022-05-17','Riju Kundu','Good');
+Query OK, 5 rows affected
+
+/* Fetching data of Feedback table */
+
+mysql> select * from feedback;
++------------+-----------+------------+----------------+----------+
+| FeedbackID | StudentID | Date       | InstructorName | Feedback |
++------------+-----------+------------+----------------+----------+
+| F101       | S101      | 2020-02-02 | Subhashree Das | Good     |
+| F102       | S102      | 2020-02-08 | Shawin Pradhan | Good     |
+| F103       | S103      | 2021-12-08 | Suramya Biswas | Good     |
+| F104       | S104      | 2023-11-08 | Gargi Banerjee | Good     |
+| F105       | S105      | 2022-05-17 | Riju Kundu     | Good     |
++------------+-----------+------------+----------------+----------+
+5 rows in set
