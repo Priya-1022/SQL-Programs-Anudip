@@ -1,0 +1,181 @@
+Lab 1. Create a Database & Table Using MySQL Command-Line Client.
+
+1. Create a database with the name StudentManagementSystem.
+
+--> mysql> create database StudentManagementSystem;
+
+mysql> show databases;
++-------------------------+
+| Database                |
++-------------------------+
+| demo                    |
+| ecommerce               |
+| information_schema      |
+| mysql                   |
+| performance_schema      |
+| sakila                  |
+| studentmanagementsystem |
+| sys                     |
+| world                   |
++-------------------------+
+
+2. Create a table with named Student with attributes:
+● StudentID (Primary Key)
+● FirstName
+● LastName
+● DateOfBirth
+● Gender
+● Email
+● Phone
+
+--> mysql> create table STUDENT(
+    -> StudentID varchar(10) primary key,
+    -> FirstName varchar(20) not null,
+    -> LastName varchar(20) not null,
+    -> DateOfBirth date not null,
+    -> Gender varchar(10) not null,
+    -> Email varchar(30) not null,
+    -> Phone varchar(10) not null
+    -> );
+
+mysql> desc student;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| StudentID   | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName   | varchar(20) | NO   |     | NULL    |       |
+| LastName    | varchar(20) | NO   |     | NULL    |       |
+| DateOfBirth | date        | NO   |     | NULL    |       |
+| Gender      | varchar(10) | NO   |     | NULL    |       |
+| Email       | varchar(30) | NO   |     | NULL    |       |
+| Phone       | varchar(10) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+3. Create a table with name Course with attributes:
+● CourseID (Primary Key)
+● CourseTitle
+● Credits
+
+--> mysql> create table Course(
+    -> CourseID varchar(10) primary key,
+    -> CourseTitle varchar(25) not null,
+    -> Credits int not null
+    -> );
+
+mysql> desc course;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| CourseID    | varchar(10) | NO   | PRI | NULL    |       |
+| CourseTitle | varchar(25) | NO   |     | NULL    |       |
+| Credits     | int         | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+4. Create a table with named Instructor with attributes:
+● InstructorID (Primary Key)
+● FirstName
+● LastName
+● Email
+
+-->  mysql> create table Instructor(
+    -> InstructorID varchar(10) primary key,
+    -> FirstName varchar(20) not null,
+    -> LastName varchar(20) not null,
+    -> Email varchar(30) not null
+    -> );
+
+mysql> desc instructor;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| InstructorID | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName    | varchar(20) | NO   |     | NULL    |       |
+| LastName     | varchar(20) | NO   |     | NULL    |       |
+| Email        | varchar(30) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+5. Create a table with named Enrollment with attributes:
+● EnrollmentID (Primary Key)
+● EnrollmentDate
+● StudentID(Foreign key)
+● CourseID(Foreign Key)
+● InstructorID(Foreign key)
+
+-->  mysql> create table Enrollment(
+    -> EnrollmentID varchar(10) primary key,
+    -> EnrollmentDate date not null,
+    -> StudentID varchar(10),
+    -> FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
+    -> CourseID varchar(10),
+    -> FOREIGN KEY(CourseID) REFERENCES Course(CourseID),
+    -> InstructorID varchar(10),
+    -> FOREIGN KEY(InstructorID) REFERENCES Instructor(InstructorID)
+    -> );
+
+mysql> desc enrollment;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| EnrollmentID   | varchar(10) | NO   | PRI | NULL    |       |
+| EnrollmentDate | date        | NO   |     | NULL    |       |
+| StudentID      | varchar(10) | YES  | MUL | NULL    |       |
+| CourseID       | varchar(10) | YES  | MUL | NULL    |       |
+| InstructorID   | varchar(10) | YES  | MUL | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+6. Create a table with named Score with attributes:
+● ScoreID (Primary Key)
+● CourseID (Foreign key)
+● StudentID (Foreign Key)
+● DateOfExam
+● CreditObtained
+
+-->  mysql> create table Score(
+    -> ScoreID varchar(10) primary key,
+    -> CourseID varchar(10),
+    -> FOREIGN KEY(CourseID) REFERENCES Course(CourseID),
+    -> StudentID varchar(10),
+    -> FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
+    -> DateOfExam date not null,
+    -> CreditObtained int not null
+    -> );
+
+mysql> desc score;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| ScoreID        | varchar(10) | NO   | PRI | NULL    |       |
+| CourseID       | varchar(10) | YES  | MUL | NULL    |       |
+| StudentID      | varchar(10) | YES  | MUL | NULL    |       |
+| DateOfExam     | date        | NO   |     | NULL    |       |
+| CreditObtained | int         | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+7. Create a table with named Feedback with attributes:
+● FeedbackID (Primary Key)
+● StudentID (Foreign key)
+● Date
+● InstructorName
+● Feedback
+
+-->  mysql> use studentmanagementsystem;
+Database changed
+mysql> create table Feedback(
+    -> FeedbackID varchar(10) primary key,
+    -> StudentID varchar(10),
+    -> Foreign key(StudentID) references Student(StudentId),
+    -> Date date not null,
+    -> InstructorName varchar(20) not null,
+    -> Feedback varchar(100) not null
+    -> );
+
+mysql> desc feedback;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| FeedbackID     | varchar(10)  | NO   | PRI | NULL    |       |
+| StudentID      | varchar(10)  | YES  | MUL | NULL    |       |
+| Date           | date         | NO   |     | NULL    |       |
+| InstructorName | varchar(20)  | NO   |     | NULL    |       |
+| Feedback       | varchar(100) | NO   |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
