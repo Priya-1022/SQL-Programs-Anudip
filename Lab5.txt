@@ -1,0 +1,33 @@
+Lab 1-
+Database Schema:
+Use the same database scheme created in Previous Lab.
+
+Task: Let's consider a scenario where you want to retrieve information about students from a database table named student and display the results in ascending order based on their last names.
+
+--> mysql> select * from student order by lastname asc;
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| StudentID | FirstName | LastName | DateOfBirth | Gender | Email             | Phone      |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+| S101      | Priya     | Keshari  | 2003-10-10  | Female | priya@gmail.com   | 9876543210 |
+| S103      | Sandeep   | Kumar    | 2007-09-14  | Male   | sandeep@gmail.com | 9858543290 |
+| S102      | Anjali    | Mahato   | 2003-05-30  | Female | anjali@gmail.com  | 9876543290 |
+| S104      | Vivek     | Singh    | 2001-02-26  | Male   | vivek@gmail.com   | 8958543290 |
+| S106      | Jane      | Smith    | 2000-02-21  | Male   | jane@gmail.com    | 8981547963 |
+| S105      | Khushi    | Yadav    | 2012-07-25  | Female | khushi@gmail.com  | 8958554780 |
++-----------+-----------+----------+-------------+--------+-------------------+------------+
+6 rows in set
+
+Lab 2-
+Database Schema:
+Use the same database scheme created in Previous Lab.
+
+Task: Let's consider a scenario where you want to count the number of students based on their gender from a database table named Student.
+
+--> mysql> select gender, count(*) as no_of_students from student group by gender;
++--------+----------------+
+| gender | no_of_students |
++--------+----------------+
+| Female |              3 |
+| Male   |              3 |
++--------+----------------+
+2 rows in set
